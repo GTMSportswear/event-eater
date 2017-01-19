@@ -30,7 +30,7 @@ namespace AuthNetCheckerService
             var html = await client.GetStringAsync("https://status.authorize.net").ConfigureAwait(false);
 
             var regex = new Regex("body class=\".*status-none.*\"");
-            var isDown = !regex.IsMatch(html);
+            var isDown = regex.IsMatch(html);
 
             Console.WriteLine($"Authorize.NET is down? {isDown}");
             return isDown;
@@ -41,7 +41,7 @@ namespace AuthNetCheckerService
       {
          using (var client = new HttpClient())
          {
-            await client.GetStringAsync("http://localhost:64900/event/paymentGatewayDown").ConfigureAwait(false);
+            await client.PostAsync("http://localhost:64900/event/paymentGatewayDown", null).ConfigureAwait(false);
             Console.WriteLine("Status sent to Event Service?");
          }
       }

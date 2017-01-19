@@ -41,7 +41,10 @@ namespace EventService.Controllers
       {
          CheckForExpired(eventName);
 
-         return dictionary[eventName];
+         if (dictionary.ContainsKey(eventName))
+            return dictionary[eventName];
+
+         return null;
       }
 
       private void CheckForExpired(string eventName)

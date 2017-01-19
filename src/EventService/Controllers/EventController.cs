@@ -45,7 +45,10 @@ namespace EventService.Controllers
 
             case "paymentGatewayDown":
                evnt = new PaymentGatewayEvent(ds);
-               evnt.capture("paymentGatewayDown");
+               if (httpVerb == "post")
+                  evnt.capture("paymentGatewayDown");
+               else if (httpVerb == "get")
+                  return ds.read(eventName);
                return null;
 
             default:
